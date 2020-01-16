@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MediaCard from './MediaCard';
+import './styles/DeckOfCards.sass';
 
 import { Grid } from '@material-ui/core';
 
@@ -9,8 +10,10 @@ const DeckOfCards = ({ movies }) =>{
         return <MediaCard
                     key={ index }
                     name={ movie.title }
-                    info={ movie.overview }
+                    lan={ movie.original_language }
                     poster={ movie.poster_path }
+                    date={ movie.release_date }
+                    rating={ movie.vote_average }
                 />
     })
 
