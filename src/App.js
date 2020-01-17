@@ -2,13 +2,24 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header';
 import Loader from './Loader';
-
+import MovieDetails from './MovieDetails';
 import DeckOfCards from './DeckOfCards';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 
 class App extends Component {
     state = {
+        key: 0,
         page: 2,
         movieList: []
+    }
+
+    onCardClick = (one) => {
+        console.log(this.state.movieList[one])
+        this.setState({
+            key: one
+        })
     }
 
     onLoaderClick = () => {
@@ -53,11 +64,30 @@ class App extends Component {
 
     render() {
         return(
-            <React.Fragment>
-                <Header />
-                <DeckOfCards movies={ this.state.movieList } />
-                <Loader click={ this.onLoaderClick }/>
-            </React.Fragment>
+            <Router>
+                <React.Fragment>
+                    <Route exact path="/" render={ props => (
+                        <React.Fragment>
+                            <Header name="Movie App"/>
+                            <DeckOfCards
+                                movies={ this.state.movieList }
+                                cardClick={ this.onCardClick }
+                            />
+                            <Loader click={ this.onLoaderClick }/>
+                        </React.Fragment>
+                    )} />
+                    <Route exact path="/moviedetails" render={ props => (
+                        <React.Fragment>
+                            <Header name="Movie Details"/>
+                            <MovieDetails
+                                movies={ this.state.movieList }
+                                index={ this.state.key }
+
+                            />
+                        </React.Fragment>
+                    )}/>
+                </React.Fragment>
+            </Router>
         );
     }
 

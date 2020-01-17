@@ -5,7 +5,7 @@ import './styles/DeckOfCards.sass';
 
 import { Grid } from '@material-ui/core';
 
-const DeckOfCards = ({ movies }) =>{
+const DeckOfCards = ({ movies, cardClick }) =>{
     const renderMovies = movies.map((movie, index) => {
         return <MediaCard
                     key={ index }
@@ -14,6 +14,8 @@ const DeckOfCards = ({ movies }) =>{
                     poster={ movie.poster_path }
                     date={ movie.release_date }
                     rating={ movie.vote_average }
+                    cardClick={ cardClick }
+                    index={ index }
                 />
     })
 

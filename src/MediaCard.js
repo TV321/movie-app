@@ -8,34 +8,51 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import { Link } from "react-router-dom"
 
 import './styles/MediaCard.sass';
 
 const useStyles = makeStyles({
   card: {
     maxWidth: 345,
-    maxHeight: 600,
+    maxHeight: 620,
     width: 300,
-    '&:hover': { backgroundColor: "blue"}
+    border: '1px solid #2E86AB',
+    padding: '10px',
+    margin: '10px',
+    transition: 'all .3s linear',
+    backgroundColor: '#37323E',
+    '&:hover': {
+        backgroundColor: '#211e25'
+    }
   },
   media: {
     height: 400,
   },
+  firstSection: {
+      height: 132,
+      padding: 5
+  },
+  secondSection: {
+      height: 50,
+      padding: 5
+  }
 });
 
-const MediaCard = ({ name, lan, poster, date, rating }) => {
+const MediaCard = ({ name, lan, poster, date, rating, cardClick, index}) => {
   const classes = useStyles();
   const year = date.slice(0,4);
 
   return (
-    <Card className={classes.card}>
+    <Link to="moviedetails">
+    <Card className={classes.card} onClick={ ()=> cardClick(index) }>
       <CardActionArea>
         <CardMedia
           className={classes.media}
           image={`https://image.tmdb.org/t/p/w500${ poster }`}
           title="Contemplative Reptile"
         />
-        <CardContent>
+        <CardContent className={classes.firstSection}>
           <Typography gutterBottom variant="h5" component="h2">
             { name } ({ year })
           </Typography>
@@ -43,13 +60,14 @@ const MediaCard = ({ name, lan, poster, date, rating }) => {
             Language: { lan }
           </Typography>
         </CardContent>
-        <CardContent style={{ height: "40px", padding: "5px"}}>
+        <CardContent className={classes.secondSection} >
             <Avatar aria-label="rating" className={classes.avatar}>
               { rating }
             </Avatar>
         </CardContent>
       </CardActionArea>
     </Card>
+    </Link>
   );
 }
 

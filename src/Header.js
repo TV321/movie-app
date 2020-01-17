@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/Header.sass';
 
-const Header = () => {
+const Header = ({name}) => {
     return(
         <header>
-            <h1>Movie App</h1>
+            <h1>{ name }</h1>
         </header>
     )
 }

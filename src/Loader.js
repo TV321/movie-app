@@ -2,17 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/Loader.sass'
 
-
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-
-
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 const Loader = ({ click }) => {
+    const classes = useStyles();
     return(
         <div id="button-div">
-            <button onClick={ click }>+</button>
-
+            <div className={classes.root}>
+                <Button onClick={ click } variant="contained" color="primary">
+                    +
+                </Button>
+            </div>
         </div>
     )
 }
