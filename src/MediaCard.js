@@ -50,7 +50,7 @@ const MediaCard = ({ name, lan, poster, date, rating, cardClick, index}) => {
         <CardMedia
           className={classes.media}
           image={`https://image.tmdb.org/t/p/w500${ poster }`}
-          title="Contemplative Reptile"
+          title=""
         />
         <CardContent className={classes.firstSection}>
           <Typography gutterBottom variant="h5" component="h2">
