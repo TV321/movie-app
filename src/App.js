@@ -10,16 +10,26 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
     state = {
-        key: 0,
         page: 2,
-        movieList: []
+        movieList: [],
+        movie: ""
     }
 
     onCardClick = (one) => {
-        console.log(this.state.movieList[one])
-        this.setState({
-            key: one
+        const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
+        const id = this.state.movieList[one].id;
+        console.log(id)
+
+        fetch(`https://api.themoviedb.org/3/movie/${ id }?api_key=${ key }`)
+        .then(response => response.json())
+        .then(res => {
+            this.setState({
+                movie: res
+            })
         })
+        .then(() => {
+            console.log(this.state.movie)
+        });
     }
 
     onLoaderClick = () => {
@@ -80,9 +90,7 @@ class App extends Component {
                         <React.Fragment>
                             <Header name="Movie Details"/>
                             <MovieDetails
-                                movies={ this.state.movieList }
-                                index={ this.state.key }
-
+                                movie={ this.state.movie }
                             />
                         </React.Fragment>
                     )}/>

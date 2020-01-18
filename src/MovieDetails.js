@@ -43,47 +43,56 @@ const useStyles = makeStyles({
 });
 
 
-const MovieDetails = ({ movies, index }) => {
+const MovieDetails = ({ movie }) => {
     const classes = useStyles();
-    return (
-        <div id="movie-details">
-            <Card className={classes.card}>
-                    <CardMedia
-                        className={classes.media}
-                        image={ `https://image.tmdb.org/t/p/original${movies[index].backdrop_path}` }
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2" className={ classes.title }>
-                            { movies[index].title }
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                            { movies[index].overview }
-                        </Typography>
-                        <br></br>
-                        <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                            Rating: { movies[index].vote_average }
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                            Language: { movies[index].original_language }
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                            Release Date: { movies[index].release_date }
-                        </Typography>
-                    </CardContent>
-                <CardActions>
-                    <Link to="/">
-                        <Button className={classes.button} variant="contained" color="primary">
-                            <ArrowBackIcon />
-                        </Button>
-                    </Link>
-                </CardActions>
-            </Card>
-        </div>
+        { if (movie !== ""){
+            const lan = movie.spoken_languages.map(lan => {
+                return lan.name
+            })
+            console.log(lan)
+            return (
+                <div id="movie-details">
+                    <Card className={classes.card}>
+                            <CardMedia
+                                className={classes.media}
+                                image={ `https://image.tmdb.org/t/p/original${movie.backdrop_path}` }
+                                title="Contemplative Reptile"
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2" className={ classes.title }>
+                                    { movie.title }
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                                    { movie.overview }
+                                </Typography>
+                                <br></br>
+                                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                                    Rating: { movie.vote_average }
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                                    Language: { lan.join(", ") }
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                                    Release Date: { movie.release_date.replace(/-/g, ".") }
+                                </Typography>
+                            </CardContent>
+                        <CardActions>
+                            <Link to="/">
+                                <Button className={classes.button} variant="contained" color="primary">
+                                    <ArrowBackIcon />
+                                </Button>
+                            </Link>
+                        </CardActions>
+                    </Card>
+                </div>
 
-    )
-}
+            )
+        } else {
+            return(
+                null
+            )
+        }}
 
-
+    }
 
 export default MovieDetails
