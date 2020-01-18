@@ -39,6 +39,9 @@ const useStyles = makeStyles({
       '&:hover': {
           backgroundColor: '#6D6A75'
       }
+  },
+  item: {
+      color: '#2E86AB'
   }
 });
 
@@ -48,6 +51,12 @@ const MovieDetails = ({ movie }) => {
         { if (movie !== ""){
             const lan = movie.spoken_languages.map(lan => {
                 return lan.name
+            })
+            const countries = movie.production_countries.map(count => {
+                return count.name
+            })
+            const companies = movie.production_companies.map(comp => {
+                return comp.name
             })
             console.log(lan)
             return (
@@ -67,13 +76,22 @@ const MovieDetails = ({ movie }) => {
                                 </Typography>
                                 <br></br>
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                                    Rating: { movie.vote_average }
+                                    <span className={classes.item}>Rating:</span> { movie.vote_average }
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                                    Language: { lan.join(", ") }
+                                    <span className={classes.item}>Popularity:</span> { movie.popularity }
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
-                                    Release Date: { movie.release_date.replace(/-/g, ".") }
+                                    <span className={classes.item}>Language:</span> { lan.join(", ") }
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                                    <span className={classes.item}>Release Date:</span> { movie.release_date.replace(/-/g, ".") }
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                                    <span className={classes.item}>Countries:</span> { countries.join(", ") }
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
+                                    <span className={classes.item}>Production Companies:</span> { companies.join(", ") }
                                 </Typography>
                             </CardContent>
                         <CardActions>
