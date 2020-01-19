@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import MainHeader from './MainHeader';
 import Header from './Header';
 import Loader from './Loader';
 import MovieDetails from './MovieDetails';
@@ -10,9 +11,31 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
     state = {
+        display: "popular",
         page: 2,
         movieList: [],
         movie: ""
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.display !== prevState.display){
+            const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
+            fetch(`https://api.themoviedb.org/3/movie/${ this.state.display }?api_key=${ key }&language=en-US&page=1`)
+                .then(response => response.json())
+                .then(res => {
+                    this.setState({
+                        movieList: res.results
+                    })
+                })
+        }
+    }
+
+    onInputChange = (event) => {
+        console.log(event.target.value)
+        this.setState({
+            display: event.target.value
+        })
+        console.log(this.state.display)
     }
 
     onCardClick = (one) => {
@@ -38,7 +61,7 @@ class App extends Component {
             page: state.page + 1
         }))
         console.log(this.state.page)
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${ key }&language=en-US&page=${ this.state.page }`)
+        fetch(`https://api.themoviedb.org/3/movie/${ this.state.display }?api_key=${ key }&language=en-US&page=${ this.state.page }`)
         .then(response => response.json())
         .then(res => {
             this.setState(prevState => ({
@@ -54,7 +77,7 @@ class App extends Component {
 
     componentDidMount () {
         const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${ key }&language=en-US&page=1`)
+        fetch(`https://api.themoviedb.org/3/movie/${ this.state.display }?api_key=${ key }&language=en-US&page=1`)
             .then(response => response.json())
             .then(res => {
                 this.setState({
@@ -78,7 +101,11 @@ class App extends Component {
                 <React.Fragment>
                     <Route exact path="/" render={ props => (
                         <React.Fragment>
-                            <Header name="Movie App"/>
+                            <MainHeader
+                                handleChange={ this.onInputChange }
+                                name="Movie App"
+                                def={ this.state.display }
+                            />
                             <DeckOfCards
                                 movies={ this.state.movieList }
                                 cardClick={ this.onCardClick }
