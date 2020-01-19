@@ -1,2 +1,6 @@
 ## Movie App
-made with React and The Movie DB API
+
+### Made with:
+- React: https://reactjs.org/
+- Material-UI: https://material-ui.com/
+- The Movie Database: https://www.themoviedb.org/
