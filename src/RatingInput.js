@@ -47,7 +47,7 @@ const preventDef = (e) => {
     e.key === 'Enter' && e.preventDefault();
 }
 
-const RatingInput = () => {
+const RatingInput = ({onRateChange, onRateClick}) => {
     const classes = useStyles();
     return (
         <form className={classes.root} noValidate autoComplete="off" onKeyPress={ preventDef }>
@@ -60,10 +60,14 @@ const RatingInput = () => {
                         min: 1,
                         max: 10,
                         onKeyPress: preventDef
-                }}
+                    }}
+                    onChange={ onRateChange }
 
                  />
-                <Button className={classes.button} variant="contained">
+                <Button
+                    onClick={ onRateClick }
+                    className={classes.button}
+                    variant="contained">
                     Submit
                 </Button>
         </form>

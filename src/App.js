@@ -11,11 +11,42 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
     state = {
+        guestUserRate: "",
         guestSessionId: "",
         display: "popular",
         page: 2,
         movieList: [],
         movie: ""
+    }
+
+    onRateSubmitClick = () => {
+        console.log('clicked');
+        const id = this.state.movie.id;
+        const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
+        const guest = this.state.guestSessionId;
+        const sendData = {
+            "value": this.state.guestUserRate
+        }
+
+        fetch(`https://api.themoviedb.org/3/movie/${ id }/rating?api_key=${ key }&guest_session_id=${ guest }`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            body: JSON.stringify(sendData)
+        })
+            .then(response => response.json())
+            .then(res => {
+                console.log(res)
+            })
+    }
+
+
+
+    onRateInputChange = (event) => {
+        this.setState({
+            guestUserRate: event.target.value
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -115,6 +146,8 @@ class App extends Component {
                         <React.Fragment>
                             <Header name="Movie Details"/>
                             <MovieDetails
+                                onRateClick={ this.onRateSubmitClick }
+                                onRateChange={ this.onRateInputChange }
                                 movie={ this.state.movie }
                             />
                         </React.Fragment>

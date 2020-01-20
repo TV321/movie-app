@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 });
 
 
-const MovieDetails = ({ movie }) => {
+const MovieDetails = ({ movie, onRateChange, onRateClick }) => {
     const classes = useStyles();
         { if (movie !== ""){
             const lan = movie.spoken_languages.map(lan => {
@@ -80,7 +80,10 @@ const MovieDetails = ({ movie }) => {
                                     <span className={classes.item}>Rating:</span> { movie.vote_average }
                                 </Typography>
 
-                                <RatingInput />
+                                <RatingInput
+                                    onRateChange={ onRateChange }
+                                    onRateClick={ onRateClick }
+                                />
 
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                                     <span className={classes.item}>Popularity:</span> { movie.popularity }
