@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
     state = {
+        guestSessionId: "",
         display: "popular",
         page: 2,
         movieList: [],
@@ -82,6 +83,13 @@ class App extends Component {
                     }
                 }
             )
+        fetch(`https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${ key }`)
+            .then(response => response.json())
+            .then(res => {
+                this.setState({
+                    guestSessionId: res.guest_session_id
+                })
+            })
     }
 
 

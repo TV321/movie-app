@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/MovieDetails.sass'
 import { Link } from "react-router-dom"
+import RatingInput from './RatingInput'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -11,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -77,6 +79,9 @@ const MovieDetails = ({ movie }) => {
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                                     <span className={classes.item}>Rating:</span> { movie.vote_average }
                                 </Typography>
+
+                                <RatingInput />
+
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                                     <span className={classes.item}>Popularity:</span> { movie.popularity }
                                 </Typography>
