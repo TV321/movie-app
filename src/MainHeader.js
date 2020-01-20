@@ -11,7 +11,6 @@ const MainHeader = ({name, handleChange, def }) => {
             <HeaderInput
                 handleChange={ handleChange }
                 def={ def }
-
             />
         </header>
     )

@@ -58,7 +58,6 @@ const MovieDetails = ({ movie }) => {
             const companies = movie.production_companies.map(comp => {
                 return comp.name
             })
-            console.log(lan)
             return (
                 <div id="movie-details">
                     <Card className={classes.card}>

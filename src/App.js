@@ -31,18 +31,14 @@ class App extends Component {
     }
 
     onInputChange = (event) => {
-        console.log(event.target.value)
         this.setState({
             display: event.target.value
         })
-        console.log(this.state.display)
     }
 
     onCardClick = (one) => {
         const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
         const id = this.state.movieList[one].id;
-        console.log(id)
-
         fetch(`https://api.themoviedb.org/3/movie/${ id }?api_key=${ key }`)
         .then(response => response.json())
         .then(res => {
@@ -50,9 +46,6 @@ class App extends Component {
                 movie: res
             })
         })
-        .then(() => {
-            console.log(this.state.movie)
-        });
     }
 
     onLoaderClick = () => {
@@ -60,7 +53,6 @@ class App extends Component {
         this.setState(state => ({
             page: state.page + 1
         }))
-        console.log(this.state.page)
         fetch(`https://api.themoviedb.org/3/movie/${ this.state.display }?api_key=${ key }&language=en-US&page=${ this.state.page }`)
         .then(response => response.json())
         .then(res => {
@@ -71,8 +63,6 @@ class App extends Component {
                 ]
             }))
         })
-        .then(console.log(this.state.movieList))
-
     }
 
     componentDidMount () {
