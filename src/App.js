@@ -16,7 +16,9 @@ class App extends Component {
         display: "popular",
         page: 2,
         movieList: [],
-        movie: ""
+        movie: "",
+        ratedMovies: [],
+        userRate: "-",
     }
 
     onRateSubmitClick = () => {
@@ -38,6 +40,10 @@ class App extends Component {
             .then(response => response.json())
             .then(res => {
                 console.log(res)
+                if(res.status_code === 1){
+                    console.log('Status code is 1')
+
+                }
             })
     }
 
@@ -69,6 +75,7 @@ class App extends Component {
     }
 
     onCardClick = (one) => {
+        const guest = this.state.guestSessionId;
         const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
         const id = this.state.movieList[one].id;
         fetch(`https://api.themoviedb.org/3/movie/${ id }?api_key=${ key }`)
@@ -78,6 +85,28 @@ class App extends Component {
                 movie: res
             })
         })
+        fetch(`https://api.themoviedb.org/3/guest_session/${ guest }/rated/movies?api_key=${ key }&language=en-US&sort_by=created_at.asc`)
+        .then(response => response.json())
+        .then(res => {
+            this.setState({
+                ratedMovies: res.results
+            })
+        })
+        if(this.state.ratedMovies.length > 0 && id) {
+            const ratedMovie = this.state.ratedMovies.filter(movie => movie.id === id)
+            if(ratedMovie.length > 0) {
+                console.log(ratedMovie)
+                console.log(ratedMovie[0])
+                console.log(ratedMovie[0].rating)
+                this.setState({
+                    userRate: ratedMovie[0].rating
+                })
+            } else {
+                this.setState({
+                    userRate: "-"
+                })
+            }
+        }
     }
 
     onLoaderClick = () => {
@@ -149,6 +178,7 @@ class App extends Component {
                                 onRateClick={ this.onRateSubmitClick }
                                 onRateChange={ this.onRateInputChange }
                                 movie={ this.state.movie }
+                                userRate={ this.state.userRate }
                             />
                         </React.Fragment>
                     )}/>

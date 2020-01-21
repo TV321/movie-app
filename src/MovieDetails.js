@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './styles/MovieDetails.sass'
 import { Link } from "react-router-dom"
 import RatingInput from './RatingInput'
+import UserRate from './UserRate'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -48,7 +49,8 @@ const useStyles = makeStyles({
 });
 
 
-const MovieDetails = ({ movie, onRateChange, onRateClick }) => {
+
+const MovieDetails = ({ movie, onRateChange, onRateClick, userRate}) => {
     const classes = useStyles();
         { if (movie !== ""){
             const lan = movie.spoken_languages.map(lan => {
@@ -80,10 +82,19 @@ const MovieDetails = ({ movie, onRateChange, onRateClick }) => {
                                     <span className={classes.item}>Rating:</span> { movie.vote_average }
                                 </Typography>
 
+
                                 <RatingInput
                                     onRateChange={ onRateChange }
                                     onRateClick={ onRateClick }
                                 />
+
+
+                                    <UserRate
+                                        userRate={ userRate }
+                                    />
+
+
+
 
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                                     <span className={classes.item}>Popularity:</span> { movie.popularity }
