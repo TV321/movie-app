@@ -42,8 +42,12 @@ class App extends Component {
                 console.log(res)
                 if(res.status_code === 1){
                     console.log('Status code is 1')
-
                 }
+            })
+            .then(() =>{
+                this.setState({
+                    userRate: this.state.guestUserRate
+                })
             })
     }
 
@@ -66,6 +70,7 @@ class App extends Component {
                     })
                 })
         }
+
     }
 
     onInputChange = (event) => {
@@ -92,21 +97,24 @@ class App extends Component {
                 ratedMovies: res.results
             })
         })
-        if(this.state.ratedMovies.length > 0 && id) {
-            const ratedMovie = this.state.ratedMovies.filter(movie => movie.id === id)
-            if(ratedMovie.length > 0) {
-                console.log(ratedMovie)
-                console.log(ratedMovie[0])
-                console.log(ratedMovie[0].rating)
-                this.setState({
-                    userRate: ratedMovie[0].rating
-                })
-            } else {
-                this.setState({
-                    userRate: "-"
-                })
+        .then(() => {
+            if(this.state.ratedMovies.length > 0 && id) {
+                const ratedMovie = this.state.ratedMovies.filter(movie => movie.id === id)
+                if(ratedMovie.length > 0) {
+                    console.log(ratedMovie)
+                    console.log(ratedMovie[0])
+                    console.log(ratedMovie[0].rating)
+                    this.setState({
+                        userRate: ratedMovie[0].rating
+                    })
+                } else {
+                    this.setState({
+                        userRate: "-"
+                    })
+                }
             }
-        }
+        })
+
     }
 
     onLoaderClick = () => {

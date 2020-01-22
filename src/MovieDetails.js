@@ -49,9 +49,18 @@ const useStyles = makeStyles({
 });
 
 
-
 const MovieDetails = ({ movie, onRateChange, onRateClick, userRate}) => {
     const classes = useStyles();
+    let one = "";
+    console.log(userRate)
+
+        { if (userRate === "-") {
+            one = <RatingInput onRateChange={ onRateChange } onRateClick={ onRateClick } />
+        } else {
+            one = <UserRate userRate={ userRate } />
+            }
+        }
+
         { if (movie !== ""){
             const lan = movie.spoken_languages.map(lan => {
                 return lan.name
@@ -62,6 +71,7 @@ const MovieDetails = ({ movie, onRateChange, onRateClick, userRate}) => {
             const companies = movie.production_companies.map(comp => {
                 return comp.name
             })
+
             return (
                 <div id="movie-details">
                     <Card className={classes.card}>
@@ -82,19 +92,7 @@ const MovieDetails = ({ movie, onRateChange, onRateClick, userRate}) => {
                                     <span className={classes.item}>Rating:</span> { movie.vote_average }
                                 </Typography>
 
-
-                                <RatingInput
-                                    onRateChange={ onRateChange }
-                                    onRateClick={ onRateClick }
-                                />
-
-
-                                    <UserRate
-                                        userRate={ userRate }
-                                    />
-
-
-
+                                { one }
 
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                                     <span className={classes.item}>Popularity:</span> { movie.popularity }
