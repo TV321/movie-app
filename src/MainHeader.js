@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './styles/MainHeader.sass';
 import HeaderInput from './HeaderInput';
-
 
 const MainHeader = ({name, handleChange, def }) => {
     return (

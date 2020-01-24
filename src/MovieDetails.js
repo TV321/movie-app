@@ -1,10 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/MovieDetails.sass'
-import { Link } from "react-router-dom"
-import RatingInput from './RatingInput'
-import UserRate from './UserRate'
-
+import './styles/MovieDetails.sass';
+import RatingInput from './RatingInput';
+import UserRate from './UserRate';
+import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -13,8 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles({
@@ -51,13 +47,12 @@ const useStyles = makeStyles({
 
 const MovieDetails = ({ movie, onRateChange, onRateClick, userRate}) => {
     const classes = useStyles();
-    let one = "";
-    console.log(userRate)
+    let displayInput = "";
 
         { if (userRate === "-") {
-            one = <RatingInput onRateChange={ onRateChange } onRateClick={ onRateClick } />
+            displayInput = <RatingInput onRateChange={ onRateChange } onRateClick={ onRateClick } />
         } else {
-            one = <UserRate userRate={ userRate } />
+            displayInput = <UserRate userRate={ userRate } />
             }
         }
 
@@ -92,7 +87,7 @@ const MovieDetails = ({ movie, onRateChange, onRateClick, userRate}) => {
                                     <span className={classes.item}>Rating:</span> { movie.vote_average }
                                 </Typography>
 
-                                { one }
+                                { displayInput }
 
                                 <Typography variant="body2" color="textSecondary" component="p" className={classes.text}>
                                     <span className={classes.item}>Popularity:</span> { movie.popularity }

@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import MediaCard from './MediaCard';
 import './styles/DeckOfCards.sass';
-
 import { Grid } from '@material-ui/core';
 
 const DeckOfCards = ({ movies, cardClick }) =>{

@@ -73,7 +73,6 @@ const styles = theme => ({
 
 export default function HeaderInput({ handleChange, def }) {
   const classes = useStyles();
-
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
@@ -81,7 +80,6 @@ export default function HeaderInput({ handleChange, def }) {
   }, []);
 
   return (
-
     <div>
       <FormControl variant="outlined" className={classes.formControl} className={classes.root}>
         <InputLabel style={{ color: '#BFBDC1'}} ref={inputLabel} id="demo-simple-select-outlined-label" color="secondary">
@@ -92,7 +90,6 @@ export default function HeaderInput({ handleChange, def }) {
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           defaultValue={ def }
-          // value={age}
           onChange={ handleChange }
           labelWidth={labelWidth}
           MenuProps={ MenuProps }
@@ -102,13 +99,11 @@ export default function HeaderInput({ handleChange, def }) {
                     },
                 }}
         >
-
             <MenuItem value={"popular"}>Popular</MenuItem>
             <MenuItem value={"now_playing"}>In Theatres</MenuItem>
             <MenuItem value={"top_rated"}>Top Rated</MenuItem>
         </Select>
       </FormControl>
-
     </div>
   );
 }

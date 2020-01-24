@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import MainHeader from './MainHeader';
 import Header from './Header';
 import Loader from './Loader';
 import MovieDetails from './MovieDetails';
 import DeckOfCards from './DeckOfCards';
-
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
 
 class App extends Component {
     state = {
@@ -22,9 +21,7 @@ class App extends Component {
     }
 
     onRateSubmitClick = () => {
-        console.log('clicked');
         const id = this.state.movie.id;
-        const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
         const guest = this.state.guestSessionId;
         const sendData = {
             "value": this.state.guestUserRate
@@ -51,8 +48,6 @@ class App extends Component {
             })
     }
 
-
-
     onRateInputChange = (event) => {
         this.setState({
             guestUserRate: event.target.value
@@ -61,7 +56,6 @@ class App extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if(this.state.display !== prevState.display){
-            const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
             fetch(`https://api.themoviedb.org/3/movie/${ this.state.display }?api_key=${ key }&language=en-US&page=1`)
                 .then(response => response.json())
                 .then(res => {
@@ -70,7 +64,6 @@ class App extends Component {
                     })
                 })
         }
-
     }
 
     onInputChange = (event) => {
@@ -79,10 +72,9 @@ class App extends Component {
         })
     }
 
-    onCardClick = (one) => {
+    onCardClick = (movieIndex) => {
         const guest = this.state.guestSessionId;
-        const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
-        const id = this.state.movieList[one].id;
+        const id = this.state.movieList[movieIndex].id;
         fetch(`https://api.themoviedb.org/3/movie/${ id }?api_key=${ key }`)
         .then(response => response.json())
         .then(res => {
@@ -101,9 +93,6 @@ class App extends Component {
             if(this.state.ratedMovies.length > 0 && id) {
                 const ratedMovie = this.state.ratedMovies.filter(movie => movie.id === id)
                 if(ratedMovie.length > 0) {
-                    console.log(ratedMovie)
-                    console.log(ratedMovie[0])
-                    console.log(ratedMovie[0].rating)
                     this.setState({
                         userRate: ratedMovie[0].rating
                     })
@@ -118,7 +107,6 @@ class App extends Component {
     }
 
     onLoaderClick = () => {
-        const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
         this.setState(state => ({
             page: state.page + 1
         }))
@@ -135,7 +123,6 @@ class App extends Component {
     }
 
     componentDidMount () {
-        const key = "dbc9fd3cb8c02c485593e9bf8ba731d7";
         fetch(`https://api.themoviedb.org/3/movie/${ this.state.display }?api_key=${ key }&language=en-US&page=1`)
             .then(response => response.json())
             .then(res => {
@@ -146,8 +133,6 @@ class App extends Component {
             .then(() => {
                 if (this.state.movieList.length > 0) {
                     console.log(this.state.movieList)
-                    } else {
-                        null
                     }
                 }
             )
@@ -159,7 +144,6 @@ class App extends Component {
                 })
             })
     }
-
 
     render() {
         return(
